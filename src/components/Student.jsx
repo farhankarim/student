@@ -1,17 +1,18 @@
 import React from "react";
-import { useState,useRef } from "react";
+import { useState } from "react";
 import data from "../data/mock-data.json";
 import { nanoid } from "nanoid";
 
 export default function Student() {
   
-  const form = useRef(null);
   const [student, setStudent] = useState(data);
   const [addFormData, setAddFormData] = useState({
     fullName: "",
     address: "",
     phoneNumber: "",
     email: "",
+    fields: {},
+    errors: {},
   });
   const handleAddFormChange = (e) => {
     e.preventDefault();
@@ -35,17 +36,18 @@ export default function Student() {
 
     const newContacts = [...student, newContact];
     setStudent(newContacts);
-    
+    e.target.reset();
+
   };
   return (
     <div className="container">
       <div className="row justify-content-center ">
         <div className="col-6">
           <form onSubmit={handleFormSubmit}>
-            <div ref={form} className="form-group">
+            <div  className="form-group">
               <label htmlFor="exampleInputEmail1">Full Name</label>
               <input
-                type="text"
+                type="text" required
                 name="fullName"
                 onChange={handleAddFormChange}
                 className="form-control"
@@ -55,7 +57,7 @@ export default function Student() {
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Address</label>
               <textarea
-                name="address"
+                name="address" required
                 onChange={handleAddFormChange}
                 className="form-control"
               />
@@ -64,7 +66,7 @@ export default function Student() {
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Phone</label>
               <input
-                type="text"
+                type="text" required
                 name="phoneNumber"
                 onChange={handleAddFormChange}
                 className="form-control"
@@ -74,7 +76,7 @@ export default function Student() {
             <div className="form-group">
               <label htmlFor="exampleInputEmail1">Email address</label>
               <input
-                type="email"
+                type="email" required
                 name="email"
                 onChange={handleAddFormChange}
                 className="form-control"
